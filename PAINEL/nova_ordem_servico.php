@@ -8,21 +8,21 @@ $os_servicos = [];
 
 // Fetch Vehicles
 $vehicles = [];
-if (!$conn->connect_error && $conn->select_db("mecanica")) {
+if (!$conn->connect_error) {
     $res = $conn->query("SELECT v.id_veiculo, v.marca, v.modelo, v.placa, c.nome as cliente FROM Veiculo v JOIN Cliente c ON v.id_cliente = c.id_cliente");
     while ($res && $row = $res->fetch_assoc()) $vehicles[] = $row;
 }
 
 // Fetch Services
 $services = [];
-if (!$conn->connect_error && $conn->select_db("mecanica")) {
+if (!$conn->connect_error) {
     $res = $conn->query("SELECT id_servico, descricao, valor FROM Servico");
     while ($res && $row = $res->fetch_assoc()) $services[] = $row;
 }
 
 // Fetch Mechanics
 $mecanicos = [];
-if (!$conn->connect_error && $conn->select_db("mecanica")) {
+if (!$conn->connect_error) {
     $res = $conn->query("SELECT id_mecanico, nome FROM mecanico");
     while ($res && $row = $res->fetch_assoc()) $mecanicos[] = $row;
 }
@@ -30,7 +30,7 @@ if (!$conn->connect_error && $conn->select_db("mecanica")) {
 // Load existing OS if editing
 if (isset($_GET['id'])) {
     $id_os = intval($_GET['id']);
-    if (!$conn->connect_error && $conn->select_db("mecanica")) {
+    if (!$conn->connect_error) {
         $res = $conn->query("SELECT * FROM ordem_servico WHERE id_ordem_servico = $id_os");
         if ($res && $row = $res->fetch_assoc()) {
             $os_data = $row;
@@ -51,7 +51,7 @@ if (isset($_GET['id'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_veiculo = $_POST['id_veiculo'];
     $status = $_POST['status'];
-    $relato = $_POST['relato']; // Note: We don't have a place for 'relato' in schema, but we'll use it if needed.
+    $relato = $_POST['relato'] ?? '';
     $mao_de_obra = floatval($_POST['mao_de_obra']);
     $id_mecanico = $mecanicos[0]['id_mecanico'] ?? 1;
 
@@ -60,16 +60,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pecas_valor = $_POST['peca_valor'] ?? [];
     $servicos_sel = $_POST['servicos'] ?? [];
 
-    $valor_pecas = 0;
+    $valor_total = $mao_de_obra;
     for ($i = 0; $i < count($pecas); $i++) {
-        $valor_pecas += floatval($pecas_qtd[$i]) * floatval($pecas_valor[$i]);
+        $valor_total += floatval($pecas_qtd[$i]) * floatval($pecas_valor[$i]);
     }
-    $valor_total = $valor_pecas + $mao_de_obra;
 
-    if (!$conn->connect_error && $conn->select_db("mecanica")) {
+    // Sum services
+    foreach ($servicos_sel as $id_s) {
+        foreach ($services as $serv) {
+            if ($serv['id_servico'] == $id_s) {
+                $valor_total += floatval($serv['valor']);
+                break;
+            }
+        }
+    }
+
+    if (!$conn->connect_error) {
         if ($edit_mode) {
-            $stmt = $conn->prepare("UPDATE ordem_servico SET status = ?, valor_total = ?, id_veiculo = ?, id_mecanico = ? WHERE id_ordem_servico = ?");
-            $stmt->bind_param("sdiii", $status, $valor_total, $id_veiculo, $id_mecanico, $id_os);
+            $stmt = $conn->prepare("UPDATE ordem_servico SET status = ?, valor_total = ?, id_veiculo = ?, id_mecanico = ?, relato = ? WHERE id_ordem_servico = ?");
+            $stmt->bind_param("sdiiii", $status, $valor_total, $id_veiculo, $id_mecanico, $relato, $id_os);
             $stmt->execute();
             $id_ordem = $id_os;
 
@@ -78,8 +87,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $conn->query("DELETE FROM ordem_servico_servicos WHERE id_ordem_servico = $id_ordem");
         } else {
             $data_emissao = date('Y-m-d');
-            $stmt = $conn->prepare("INSERT INTO ordem_servico (data_emissao, status, valor_total, id_veiculo, id_mecanico) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssiii", $data_emissao, $status, $valor_total, $id_veiculo, $id_mecanico);
+            $stmt = $conn->prepare("INSERT INTO ordem_servico (data_emissao, status, valor_total, id_veiculo, id_mecanico, relato) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssiiis", $data_emissao, $status, $valor_total, $id_veiculo, $id_mecanico, $relato);
             $stmt->execute();
             $id_ordem = $stmt->insert_id;
         }
@@ -178,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <div class="form-group">
                     <label>Relato do Cliente (Defeito)</label>
-                    <textarea name="relato" rows="4" placeholder="Ex: Barulho ao frear..."></textarea>
+                    <textarea name="relato" rows="4" placeholder="Ex: Barulho ao frear..."><?php echo $os_data['relato'] ?? ''; ?></textarea>
                 </div>
 
                 <div class="services-selection">
@@ -188,7 +197,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <?php else: ?>
                         <?php foreach ($services as $s): ?>
                             <div class="service-checkbox">
-                                <input type="checkbox" name="servicos[]" value="<?php echo $s['id_servico']; ?>" <?php echo in_array($s['id_servico'], $os_servicos) ? 'checked' : ''; ?> onchange="calculateTotal()">
+                                <input type="checkbox" name="servicos[]" value="<?php echo $s['id_servico']; ?>" data-valor="<?php echo $s['valor']; ?>" <?php echo in_array($s['id_servico'], $os_servicos) ? 'checked' : ''; ?> onchange="calculateTotal()">
                                 <span><?php echo $s['descricao']; ?> (R$ <?php echo number_format($s['valor'], 2, ',', '.'); ?>)</span>
                             </div>
                         <?php endforeach; ?>
@@ -215,7 +224,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="footer-form">
                     <div class="mao-obra-box">
                         <label>Mão de obra (R$)</label>
-                        <input type="number" name="mao_de_obra" id="maoDeObra" value="<?php echo $edit_mode ? ($os_data['valor_total'] - array_sum(array_map(fn($p) => $p['preco']*$p['quantidade'], $os_pecas))) : 0; ?>" step="0.01" oninput="calculateTotal()">
+                        <?php
+                        $mao_obra_val = 0;
+                        if ($edit_mode) {
+                            $total_pecas = 0;
+                            foreach ($os_pecas as $p) $total_pecas += $p['preco'] * $p['quantidade'];
+                            $total_servicos = 0;
+                            foreach ($services as $s) {
+                                if (in_array($s['id_servico'], $os_servicos)) $total_servicos += $s['valor'];
+                            }
+                            $mao_obra_val = $os_data['valor_total'] - $total_pecas - $total_servicos;
+                        }
+                        ?>
+                        <input type="number" name="mao_de_obra" id="maoDeObra" value="<?php echo $mao_obra_val; ?>" step="0.01" oninput="calculateTotal()">
                     </div>
                     <div class="btn-group" style="display: flex; flex-direction: column; gap: 10px;">
                         <button type="submit" class="btn-save">Salvar Ordem</button>
@@ -246,11 +267,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         function calculateTotal() {
             let total = parseFloat(document.getElementById('maoDeObra').value) || 0;
+
+            // Sum pieces
             document.getElementsByName('peca_qtd[]').forEach((q, i) => {
                 total += (parseFloat(q.value) || 0) * (parseFloat(document.getElementsByName('peca_valor[]')[i].value) || 0);
             });
-            // Adding services? The prompt was unclear if services have fixed price added to total
-            // But usually they do. Let's keep it simple as manual total for now or add them.
+
+            // Sum checked services
+            document.querySelectorAll('input[name="servicos[]"]:checked').forEach(s => {
+                total += parseFloat(s.getAttribute('data-valor')) || 0;
+            });
+
             document.getElementById('totalValue').innerText = 'R$ ' + total.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
         }
     </script>

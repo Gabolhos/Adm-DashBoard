@@ -4,9 +4,7 @@ require_once 'db.php';
 // Deletion logic
 if (isset($_GET['delete_id'])) {
     $delete_id = intval($_GET['delete_id']);
-    if (!$conn->connect_error && $conn->select_db("mecanica")) {
-        // Delete related pieces first if necessary, but schema has no cascade specified in prompt
-        // though normally you'd want to handle that.
+    if (!$conn->connect_error) {
         $conn->query("DELETE FROM ordem_servico_pecas WHERE id_ordem_servico = $delete_id");
         $conn->query("DELETE FROM ordem_servico_servicos WHERE id_ordem_servico = $delete_id");
         $conn->query("DELETE FROM ordem_servico WHERE id_ordem_servico = $delete_id");
@@ -17,7 +15,7 @@ if (isset($_GET['delete_id'])) {
 
 // Fetch all orders
 $orders = [];
-if (!$conn->connect_error && $conn->select_db("mecanica")) {
+if (!$conn->connect_error) {
     $sql = "SELECT
                 os.id_ordem_servico,
                 os.status,
@@ -48,65 +46,17 @@ if (!$conn->connect_error && $conn->select_db("mecanica")) {
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="painel_adm.css">
     <style>
-        .orders-header {
-            background: var(--white);
-            padding: 20px;
-            border-radius: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .btn-create {
-            background: var(--green);
-            color: var(--white);
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            font-weight: bold;
-        }
+        .orders-header { background: var(--white); padding: 20px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .btn-create { background: var(--green); color: var(--white); padding: 10px 20px; border-radius: 8px; text-decoration: none; display: flex; align-items: center; font-weight: bold; }
         .btn-create i { margin-right: 5px; }
-
-        .order-card {
-            background: var(--white);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            position: relative;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        .order-card .status-badge {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 10px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .order-card .total {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            text-align: right;
-        }
+        .order-card { background: var(--white); padding: 20px; border-radius: 10px; margin-bottom: 20px; position: relative; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .order-card .status-badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; margin-bottom: 10px; }
+        .order-card .total { position: absolute; top: 20px; right: 20px; text-align: right; }
         .order-card .total span { font-size: 12px; color: #666; }
         .order-card .total p { font-size: 18px; font-weight: bold; }
-
         .order-card h3 { font-size: 20px; margin-bottom: 5px; }
         .order-card .client-name { font-size: 12px; color: #888; margin-bottom: 15px; }
-
-        .order-card .description-row {
-            background: #f8f8f8;
-            padding: 10px;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: #666;
-            font-size: 14px;
-        }
+        .order-card .description-row { background: #f8f8f8; padding: 10px; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; color: #666; font-size: 14px; }
         .actions { display: flex; gap: 10px; }
         .actions a { color: #888; font-size: 18px; text-decoration: none; }
         .actions a:hover { color: var(--text-color); }

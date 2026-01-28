@@ -1,9 +1,8 @@
 <?php
 require_once 'db.php';
 
-// Create database if not exists
-$conn->query("CREATE DATABASE IF NOT EXISTS mecanica");
-$conn->select_db("mecanica");
+// Ensure database is selected
+$conn->select_db(DB_NAME);
 
 // Table creation
 $queries = [
@@ -50,6 +49,7 @@ $queries = [
         valor_total DECIMAL(10,2) NOT NULL,
         id_veiculo INT,
         id_mecanico INT,
+        relato TEXT,
         FOREIGN KEY (id_veiculo) REFERENCES Veiculo(id_veiculo),
         FOREIGN KEY (id_mecanico) REFERENCES mecanico(id_mecanico)
     )",
@@ -85,11 +85,11 @@ $dummy_data = [
     "INSERT IGNORE INTO Servico (id_servico, descricao, valor) VALUES (2, 'Troca de Óleo', 150.00)",
     "INSERT IGNORE INTO Servico (id_servico, descricao, valor) VALUES (3, 'Alinhamento', 80.00)",
     "INSERT IGNORE INTO Peca (id_peca, nome, marca, preco) VALUES (1, 'Amortecedor', 'Cofap', 300.00)",
-    "INSERT IGNORE INTO ordem_servico (id_ordem_servico, data_emissao, status, valor_total, id_veiculo, id_mecanico) VALUES (1, '2023-10-01', 'Em andamento', 9102.00, 1, 1)",
+    "INSERT IGNORE INTO ordem_servico (id_ordem_servico, data_emissao, status, valor_total, id_veiculo, id_mecanico, relato) VALUES (1, '2023-10-01', 'Em andamento', 9102.00, 1, 1, 'Barulho na suspensão dianteira')",
     "INSERT IGNORE INTO ordem_servico_servicos (id_ordem_servico, id_servico) VALUES (1, 1)",
-    "INSERT IGNORE INTO ordem_servico (id_ordem_servico, data_emissao, status, valor_total, id_veiculo, id_mecanico) VALUES (2, '2023-10-02', 'Aguardando peças', 1500.00, 1, 1)",
-    "INSERT IGNORE INTO ordem_servico (id_ordem_servico, data_emissao, status, valor_total, id_veiculo, id_mecanico) VALUES (3, '2023-10-03', 'Aberto', 200.00, 1, 1)",
-    "INSERT IGNORE INTO ordem_servico (id_ordem_servico, data_emissao, status, valor_total, id_veiculo, id_mecanico) VALUES (4, '2023-10-04', 'Concluído', 500.00, 1, 1)"
+    "INSERT IGNORE INTO ordem_servico (id_ordem_servico, data_emissao, status, valor_total, id_veiculo, id_mecanico, relato) VALUES (2, '2023-10-02', 'Aguardando peças', 1500.00, 1, 1, 'Necessário trocar amortecedores')",
+    "INSERT IGNORE INTO ordem_servico (id_ordem_servico, data_emissao, status, valor_total, id_veiculo, id_mecanico, relato) VALUES (3, '2023-10-03', 'Aberto', 200.00, 1, 1, 'Revisão geral')",
+    "INSERT IGNORE INTO ordem_servico (id_ordem_servico, data_emissao, status, valor_total, id_veiculo, id_mecanico, relato) VALUES (4, '2023-10-04', 'Concluído', 500.00, 1, 1, 'Troca de óleo concluída')"
 ];
 
 foreach ($dummy_data as $data) {

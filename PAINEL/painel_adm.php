@@ -6,7 +6,7 @@ $faturamento = 0;
 $aguardando_pecas = 0;
 $servicos_aberto = 0;
 
-if (!$conn->connect_error && $conn->select_db("mecanica")) {
+if (!$conn->connect_error) {
     $res = $conn->query("SELECT SUM(valor_total) as total FROM ordem_servico WHERE status = 'Concluído'");
     if ($res) {
         $row = $res->fetch_assoc();
@@ -28,7 +28,7 @@ if (!$conn->connect_error && $conn->select_db("mecanica")) {
 
 // Fetch History
 $history = [];
-if (!$conn->connect_error && $conn->select_db("mecanica")) {
+if (!$conn->connect_error) {
     $sql = "SELECT
                 v.placa,
                 c.nome as cliente,
