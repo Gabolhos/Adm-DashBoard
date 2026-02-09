@@ -17,6 +17,7 @@ if ($conn->connect_error) {
 }
 
 // Configuração PDO para compatibilidade com o código fornecido pelo usuário
+$pdo = null;
 try {
     $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8", DB_USER, DB_PASS);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -26,7 +27,7 @@ try {
         $pdo = new PDO("mysql:host=localhost;dbname=mecanica;charset=utf8", "root", "");
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch (PDOException $e2) {
-        // Silencioso se ambos falharem, será tratado nos arquivos que usam $pdo
+        // $pdo continua null
     }
 }
 ?>
