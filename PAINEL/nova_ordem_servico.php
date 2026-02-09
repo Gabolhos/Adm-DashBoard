@@ -65,7 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $valor_total += floatval($pecas_qtd[$i]) * floatval($pecas_valor[$i]);
     }
 
-    // Sum services
     foreach ($servicos_sel as $id_s) {
         foreach ($services as $serv) {
             if ($serv['id_servico'] == $id_s) {
@@ -81,8 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bind_param("sdiiii", $status, $valor_total, $id_veiculo, $id_mecanico, $relato, $id_os);
             $stmt->execute();
             $id_ordem = $id_os;
-
-            // Clean old relations
             $conn->query("DELETE FROM ordem_servico_pecas WHERE id_ordem_servico = $id_ordem");
             $conn->query("DELETE FROM ordem_servico_servicos WHERE id_ordem_servico = $id_ordem");
         } else {
@@ -93,23 +90,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id_ordem = $stmt->insert_id;
         }
 
-        // Insert parts
         for ($i = 0; $i < count($pecas); $i++) {
             $nome_peca = $pecas[$i];
             $qtd = intval($pecas_qtd[$i]);
             $valor_un = floatval($pecas_valor[$i]);
-
             $stmt_p = $conn->prepare("INSERT INTO Peca (nome, preco) VALUES (?, ?)");
             $stmt_p->bind_param("sd", $nome_peca, $valor_un);
             $stmt_p->execute();
             $id_peca = $stmt_p->insert_id;
-
             $stmt_osp = $conn->prepare("INSERT INTO ordem_servico_pecas (id_ordem_servico, id_peca, quantidade) VALUES (?, ?, ?)");
             $stmt_osp->bind_param("iii", $id_ordem, $id_peca, $qtd);
             $stmt_osp->execute();
         }
 
-        // Insert services
         foreach ($servicos_sel as $id_s) {
             $stmt_oss = $conn->prepare("INSERT INTO ordem_servico_servicos (id_ordem_servico, id_servico) VALUES (?, ?)");
             $stmt_oss->bind_param("ii", $id_ordem, $id_s);
@@ -130,6 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="painel_adm.css">
     <style>
+        .hidden { display: none !important; }
         .form-container { background: var(--grey); border-radius: 10px; padding: 30px; display: grid; grid-template-columns: 1fr 2fr; gap: 30px; position: relative; }
         .close-btn { position: absolute; top: 20px; right: 20px; font-size: 24px; color: #888; text-decoration: none; }
         .form-section h2 { font-size: 20px; margin-bottom: 30px; }
@@ -154,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .service-checkbox input { width: auto; }
     </style>
 </head>
-<body>
+<body class="hidden">
     <div class="main-content" style="margin-left: 0; width: 100%; padding: 40px;">
         <div class="form-container">
             <a href="ordens_servico.php" class="close-btn">X</a>
@@ -267,19 +261,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         function calculateTotal() {
             let total = parseFloat(document.getElementById('maoDeObra').value) || 0;
-
-            // Sum pieces
             document.getElementsByName('peca_qtd[]').forEach((q, i) => {
                 total += (parseFloat(q.value) || 0) * (parseFloat(document.getElementsByName('peca_valor[]')[i].value) || 0);
             });
-
-            // Sum checked services
             document.querySelectorAll('input[name="servicos[]"]:checked').forEach(s => {
                 total += parseFloat(s.getAttribute('data-valor')) || 0;
             });
-
             document.getElementById('totalValue').innerText = 'R$ ' + total.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
         }
     </script>
+    <?php include 'footer_auth.php'; ?>
 </body>
 </html>

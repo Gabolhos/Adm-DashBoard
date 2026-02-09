@@ -46,6 +46,7 @@ if (!$conn->connect_error) {
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="painel_adm.css">
     <style>
+        .hidden { display: none !important; }
         .orders-header { background: var(--white); padding: 20px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         .btn-create { background: var(--green); color: var(--white); padding: 10px 20px; border-radius: 8px; text-decoration: none; display: flex; align-items: center; font-weight: bold; }
         .btn-create i { margin-right: 5px; }
@@ -63,12 +64,12 @@ if (!$conn->connect_error) {
         .actions a.delete:hover { color: var(--red); }
     </style>
 </head>
-<body>
+<body class="hidden">
     <div class="sidebar">
         <div class="profile-section">
             <img src="../IMG/profile-1.jpg" alt="Admin">
             <div class="profile-info">
-                <h4>Jadir Buratto</h4>
+                <h4 id="user-email">Carregando...</h4>
                 <p>Administrador</p>
             </div>
         </div>
@@ -130,5 +131,6 @@ if (!$conn->connect_error) {
             <?php endif; ?>
         </div>
     </div>
+    <?php include 'footer_auth.php'; ?>
 </body>
 </html>

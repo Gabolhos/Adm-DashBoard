@@ -59,13 +59,16 @@ if (!$conn->connect_error) {
     <title>Painel Administrativo - SISTEMA MECANICA</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="painel_adm.css">
+    <style>
+        .hidden { display: none !important; }
+    </style>
 </head>
-<body>
+<body class="hidden"> <!-- Esconde o conteúdo até o login ser verificado -->
     <div class="sidebar">
         <div class="profile-section">
             <img src="../IMG/profile-1.jpg" alt="Admin">
             <div class="profile-info">
-                <h4>Jadir Buratto</h4>
+                <h4 id="user-email">Carregando...</h4>
                 <p>Administrador</p>
             </div>
         </div>
@@ -82,7 +85,7 @@ if (!$conn->connect_error) {
                 <h2>Painel</h2>
                 <p>Bem-Vindo Usuário à <span>Tratto Mecânica</span></p>
             </div>
-            <div class="logout-btn">
+            <div class="logout-btn" id="btnLogout">
                 <i class='bx bx-log-out'></i>
                 <span style="font-size: 12px; display: block; text-align: center;">Sair</span>
             </div>
@@ -152,5 +155,38 @@ if (!$conn->connect_error) {
             </table>
         </div>
     </div>
+
+    <!-- Firebase Auth Check -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC642PXZVjV96ORWO3qMcuEYe0lIMdIE9Q",
+            authDomain: "mec-projeto-65861.firebaseapp.com",
+            projectId: "mec-projeto-65861",
+            storageBucket: "mec-projeto-65861.firebasestorage.app",
+            messagingSenderId: "625687541988",
+            appId: "1:625687541988:web:fc82f6cb314ecc380c14f1"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById('user-email').innerText = user.email;
+                document.body.classList.remove('hidden');
+            } else {
+                window.location.href = "../index.php";
+            }
+        });
+
+        document.getElementById('btnLogout').addEventListener('click', () => {
+            signOut(auth).then(() => {
+                window.location.href = "../index.php";
+            });
+        });
+    </script>
 </body>
 </html>

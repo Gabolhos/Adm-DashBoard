@@ -67,6 +67,12 @@ $queries = [
         quantidade INT NOT NULL DEFAULT 1,
         FOREIGN KEY (id_ordem_servico) REFERENCES ordem_servico(id_ordem_servico),
         FOREIGN KEY (id_servico) REFERENCES Servico(id_servico)
+    )",
+    "CREATE TABLE IF NOT EXISTS usuarios (
+        id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+        firebase_uid VARCHAR(128) UNIQUE NOT NULL,
+        email VARCHAR(100) UNIQUE NOT NULL,
+        is_admin TINYINT(1) DEFAULT 0
     )"
 ];
 

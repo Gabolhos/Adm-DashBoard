@@ -7,13 +7,16 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="painel_adm.css">
     <link rel="stylesheet" href="painel_cliente.css">
+    <style>
+        .hidden { display: none !important; }
+    </style>
 </head>
-<body>
+<body class="hidden">
     <div class="sidebar">
         <div class="profile-section">
             <img src="../IMG/profile-1.jpg" alt="Admin">
             <div class="profile-info">
-                <h4>Jadir Buratto</h4>
+                <h4 id="user-email">Carregando...</h4>
                 <p>Administrador</p>
             </div>
         </div>
@@ -30,11 +33,16 @@
                 <h2>Clientes</h2>
                 <p>Bem-Vindo Usuário à <span>Tratto Mecânica</span></p>
             </div>
+            <div class="logout-btn" id="btnLogout">
+                <i class='bx bx-log-out'></i>
+                <span style="font-size: 12px; display: block; text-align: center;">Sair</span>
+            </div>
         </div>
 
         <div class="history-section" style="min-height: 400px; display: flex; align-items: center; justify-content: center;">
             <p style="color: #888; font-size: 18px;">Área de Clientes - Em manutenção</p>
         </div>
     </div>
+    <?php include 'footer_auth.php'; ?>
 </body>
 </html>
