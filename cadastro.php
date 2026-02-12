@@ -33,6 +33,10 @@
 
     <form id="registerForm">
         <div class="form-group">
+            <label>Nome Completo</label>
+            <input type="text" id="nome" required placeholder="Seu nome">
+        </div>
+        <div class="form-group">
             <label>E-mail</label>
             <input type="email" id="email" required placeholder="seu@email.com">
         </div>
@@ -73,6 +77,7 @@
   registerForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
+    const nome = document.getElementById('nome').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
@@ -93,7 +98,8 @@
             },
             body: JSON.stringify({
                 uid: user.uid,
-                email: user.email
+                email: user.email,
+                nome: nome
             })
         });
       })

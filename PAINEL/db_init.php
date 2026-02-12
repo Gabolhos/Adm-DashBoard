@@ -71,9 +71,11 @@ $queries = [
     "CREATE TABLE IF NOT EXISTS usuarios (
         id_usuario INT AUTO_INCREMENT PRIMARY KEY,
         firebase_uid VARCHAR(128) UNIQUE NOT NULL,
+        nome VARCHAR(100),
         email VARCHAR(100) UNIQUE NOT NULL,
         is_admin TINYINT(1) DEFAULT 0
-    )"
+    )",
+    "ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS nome VARCHAR(100) AFTER firebase_uid"
 ];
 
 foreach ($queries as $query) {

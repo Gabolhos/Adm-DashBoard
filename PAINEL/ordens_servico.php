@@ -46,30 +46,80 @@ if (!$conn->connect_error) {
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="painel_adm.css">
     <style>
-        .hidden { display: none !important; }
-        .orders-header { background: var(--white); padding: 20px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .btn-create { background: var(--green); color: var(--white); padding: 10px 20px; border-radius: 8px; text-decoration: none; display: flex; align-items: center; font-weight: bold; }
-        .btn-create i { margin-right: 5px; }
-        .order-card { background: var(--white); padding: 20px; border-radius: 10px; margin-bottom: 20px; position: relative; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .order-card .status-badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; margin-bottom: 10px; }
-        .order-card .total { position: absolute; top: 20px; right: 20px; text-align: right; }
-        .order-card .total span { font-size: 12px; color: #666; }
-        .order-card .total p { font-size: 18px; font-weight: bold; }
-        .order-card h3 { font-size: 20px; margin-bottom: 5px; }
-        .order-card .client-name { font-size: 12px; color: #888; margin-bottom: 15px; }
-        .order-card .description-row { background: #f8f8f8; padding: 10px; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; color: #666; font-size: 14px; }
-        .actions { display: flex; gap: 10px; }
-        .actions a { color: #888; font-size: 18px; text-decoration: none; }
-        .actions a:hover { color: var(--text-color); }
-        .actions a.delete:hover { color: var(--red); }
+        .btn-create {
+            background-color: var(--green);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .btn-create i { margin-right: 8px; font-size: 18px; }
+
+        .order-card {
+            background-color: var(--white);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .order-card .status-badge {
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        .order-card .total-info {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            text-align: right;
+        }
+        .order-card .total-info span { font-size: 12px; color: var(--grey-text); font-weight: 600; }
+        .order-card .total-info p { font-size: 20px; font-weight: 700; color: var(--dark-text); }
+
+        .order-card h3 { font-size: 20px; font-weight: 700; color: var(--dark-text); margin-bottom: 5px; }
+        .order-card .client-name { font-size: 12px; color: var(--grey-text); font-weight: 500; margin-bottom: 20px; }
+
+        .order-card .description-row {
+            background-color: #f1f5f9;
+            padding: 12px 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #475569;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .actions { display: flex; gap: 12px; }
+        .actions a {
+            background-color: #e2e8f0;
+            color: #475569;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            transition: 0.2s;
+        }
+        .actions a:hover { background-color: #cbd5e1; }
+        .actions a.delete { color: #ef4444; }
+        .actions a.delete:hover { background-color: #fee2e2; }
     </style>
 </head>
 <body class="hidden">
     <div class="sidebar">
         <div class="profile-section">
-            <img src="../IMG/profile-1.jpg" alt="Admin">
+            <div class="profile-img-container">
+                <img src="../IMG/profile-1.jpg" alt="Admin">
+            </div>
             <div class="profile-info">
-                <h4 id="user-email">Carregando...</h4>
+                <h4 id="user-name-display">Carregando...</h4>
                 <p>Administrador</p>
             </div>
         </div>
@@ -78,11 +128,14 @@ if (!$conn->connect_error) {
             <li><a href="ordens_servico.php" class="active"><i class='bx bx-list-ul'></i> Ordens de serviço</a></li>
             <li><a href="painel_cliente.php"><i class='bx bx-user'></i> Clientes</a></li>
         </ul>
+        <div class="sidebar-footer">
+            Desenvolvido por StiloDev
+        </div>
     </div>
 
     <div class="main-content">
-        <div class="orders-header">
-            <div>
+        <div class="header">
+            <div class="header-left">
                 <h2>Ordens de serviço</h2>
                 <p>Bem-Vindo Usuário à <span>Tratto Mecânica</span></p>
             </div>
@@ -92,7 +145,7 @@ if (!$conn->connect_error) {
         <div class="orders-list">
             <?php if (empty($orders)): ?>
                 <div class="order-card">
-                    <p style="text-align: center;">Nenhuma ordem de serviço encontrada.</p>
+                    <p style="text-align: center; color: var(--grey-text);">Nenhuma ordem de serviço encontrada.</p>
                 </div>
             <?php else: ?>
                 <?php foreach ($orders as $order): ?>
@@ -109,9 +162,9 @@ if (!$conn->connect_error) {
                             $status_class = 'aguardando';
                         }
                         ?>
-                        <span class="status-badge status <?php echo $status_class; ?>"><?php echo $status_text; ?></span>
+                        <span class="status-badge <?php echo $status_class; ?>"><?php echo $status_text; ?></span>
 
-                        <div class="total">
+                        <div class="total-info">
                             <span>Total</span>
                             <p>R$ <?php echo number_format($order['valor_total'], 2, ',', '.'); ?></p>
                         </div>
@@ -122,8 +175,8 @@ if (!$conn->connect_error) {
                         <div class="description-row">
                             <span><?php echo $order['servico'] ?? 'Descrição serviço'; ?></span>
                             <div class="actions">
-                                <a href="nova_ordem_servico.php?id=<?php echo $order['id_ordem_servico']; ?>" title="Editar"><i class='bx bx-edit-alt'></i></a>
-                                <a href="?delete_id=<?php echo $order['id_ordem_servico']; ?>" class="delete" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir esta ordem?')"><i class='bx bx-trash'></i></a>
+                                <a href="nova_ordem_servico.php?id=<?php echo $order['id_ordem_servico']; ?>">Editar</a>
+                                <a href="?delete_id=<?php echo $order['id_ordem_servico']; ?>" class="delete" onclick="return confirm('Deseja excluir esta ordem?')"><i class='bx bx-trash'></i></a>
                             </div>
                         </div>
                     </div>
@@ -131,6 +184,43 @@ if (!$conn->connect_error) {
             <?php endif; ?>
         </div>
     </div>
-    <?php include 'footer_auth.php'; ?>
+
+    <!-- Firebase Auth Check -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC642PXZVjV96ORWO3qMcuEYe0lIMdIE9Q",
+            authDomain: "mec-projeto-65861.firebaseapp.com",
+            projectId: "mec-projeto-65861",
+            storageBucket: "mec-projeto-65861.firebasestorage.app",
+            messagingSenderId: "625687541988",
+            appId: "1:625687541988:web:fc82f6cb314ecc380c14f1"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                fetch(`get_user_info.php?uid=${user.uid}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success' && data.nome) {
+                            document.getElementById('user-name-display').innerText = data.nome;
+                        } else {
+                            document.getElementById('user-name-display').innerText = user.email;
+                        }
+                    })
+                    .catch(() => {
+                        document.getElementById('user-name-display').innerText = user.email;
+                    });
+                document.body.classList.remove('hidden');
+            } else {
+                window.location.href = "../index.php";
+            }
+        });
+    </script>
 </body>
 </html>

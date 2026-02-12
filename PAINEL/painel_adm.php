@@ -59,16 +59,15 @@ if (!$conn->connect_error) {
     <title>Painel Administrativo - SISTEMA MECANICA</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="painel_adm.css">
-    <style>
-        .hidden { display: none !important; }
-    </style>
 </head>
-<body class="hidden"> <!-- Esconde o conteúdo até o login ser verificado -->
+<body class="hidden">
     <div class="sidebar">
         <div class="profile-section">
-            <img src="../IMG/profile-1.jpg" alt="Admin">
+            <div class="profile-img-container">
+                <img src="../IMG/profile-1.jpg" alt="Admin">
+            </div>
             <div class="profile-info">
-                <h4 id="user-email">Carregando...</h4>
+                <h4 id="user-name-display">Carregando...</h4>
                 <p>Administrador</p>
             </div>
         </div>
@@ -77,39 +76,42 @@ if (!$conn->connect_error) {
             <li><a href="ordens_servico.php"><i class='bx bx-list-ul'></i> Ordens de serviço</a></li>
             <li><a href="painel_cliente.php"><i class='bx bx-user'></i> Clientes</a></li>
         </ul>
+        <div class="sidebar-footer">
+            Desenvolvido por StiloDev
+        </div>
     </div>
 
     <div class="main-content">
         <div class="header">
             <div class="header-left">
                 <h2>Painel</h2>
-                <p>Bem-Vindo Usuário à <span>Tratto Mecânica</span></p>
+                <p>Bem-Vindo <span id="welcome-name">Usuário</span> à <span>Tratto Mecânica</span></p>
             </div>
-            <div class="logout-btn" id="btnLogout">
+            <div class="logout-container" id="btnLogout">
                 <i class='bx bx-log-out'></i>
-                <span style="font-size: 12px; display: block; text-align: center;">Sair</span>
+                <span>Sair</span>
             </div>
         </div>
 
         <div class="dashboard-cards">
             <div class="card revenue">
                 <h3>Faturamento (Concluído)</h3>
-                <p class="value-green">R$ <?php echo number_format($faturamento, 2, ',', '.'); ?></p>
+                <p class="value green">R$ <?php echo number_format($faturamento, 2, ',', '.'); ?></p>
             </div>
             <div class="card waiting">
                 <h3>Aguardando peça</h3>
-                <p><?php echo str_pad($aguardando_pecas, 2, '0', STR_PAD_LEFT); ?></p>
+                <p class="value"><?php echo str_pad($aguardando_pecas, 2, '0', STR_PAD_LEFT); ?></p>
             </div>
             <div class="card open">
                 <h3>Serviços em aberto</h3>
-                <p><?php echo str_pad($servicos_aberto, 2, '0', STR_PAD_LEFT); ?></p>
+                <p class="value"><?php echo str_pad($servicos_aberto, 2, '0', STR_PAD_LEFT); ?></p>
             </div>
         </div>
 
         <div class="history-section">
             <div class="history-header">
                 <h3>Histórico de serviços</h3>
-                <a href="ordens_servico.php">Ver todas</a>
+                <a href="ordens_servico.php" class="ver-todas">Ver todas</a>
             </div>
             <table>
                 <thead>
@@ -145,7 +147,7 @@ if (!$conn->connect_error) {
                                         $status_class = 'aguardando';
                                     }
                                     ?>
-                                    <span class="status <?php echo $status_class; ?>"><?php echo $status_text; ?></span>
+                                    <span class="status-badge <?php echo $status_class; ?>"><?php echo $status_text; ?></span>
                                 </td>
                                 <td><?php echo $item['mecanico']; ?></td>
                             </tr>
@@ -175,7 +177,21 @@ if (!$conn->connect_error) {
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                document.getElementById('user-email').innerText = user.email;
+                // Fetch user name from MySQL
+                fetch(`get_user_info.php?uid=${user.uid}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success' && data.nome) {
+                            document.getElementById('user-name-display').innerText = data.nome;
+                            document.getElementById('welcome-name').innerText = data.nome;
+                        } else {
+                            document.getElementById('user-name-display').innerText = user.email;
+                        }
+                    })
+                    .catch(() => {
+                        document.getElementById('user-name-display').innerText = user.email;
+                    });
+
                 document.body.classList.remove('hidden');
             } else {
                 window.location.href = "../index.php";

@@ -12,6 +12,7 @@ $input = json_decode(file_get_contents('php://input'), true);
 
 $uid = $input['uid'] ?? $_POST['uid'] ?? null;
 $email = $input['email'] ?? $_POST['email'] ?? null;
+$nome = $input['nome'] ?? $_POST['nome'] ?? null;
 
 if ($uid && $email) {
     if (!$pdo) {
@@ -24,12 +25,13 @@ if ($uid && $email) {
         // Define admin por padrão para um email específico
         $is_admin = (in_array($email, ['admin@mecanica.com', 'jadir@mecanica.com'])) ? 1 : 0;
 
-        $sql = "INSERT INTO usuarios (firebase_uid, email, is_admin) VALUES (:uid, :email, :is_admin)
-                ON DUPLICATE KEY UPDATE email = :email";
+        $sql = "INSERT INTO usuarios (firebase_uid, email, nome, is_admin) VALUES (:uid, :email, :nome, :is_admin)
+                ON DUPLICATE KEY UPDATE email = :email, nome = IFNULL(:nome, nome)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
             ':uid' => $uid,
             ':email' => $email,
+            ':nome' => $nome,
             ':is_admin' => $is_admin
         ]);
 

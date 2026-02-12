@@ -1,0 +1,52 @@
+[Thu Feb 12 23:22:38 2026] PHP 8.3.6 Development Server (http://localhost:8000) started
+[Thu Feb 12 23:22:42 2026] [::1]:51862 Accepted
+[Thu Feb 12 23:22:42 2026] [::1]:51862 [200]: GET /index.php
+[Thu Feb 12 23:22:42 2026] [::1]:51862 Closing
+[Thu Feb 12 23:22:43 2026] [::1]:59106 Accepted
+[Thu Feb 12 23:22:43 2026] [::1]:59106 [200]: GET /cadastro.php
+[Thu Feb 12 23:22:43 2026] [::1]:59106 Closing
+[Thu Feb 12 23:22:43 2026] [::1]:59122 Accepted
+[Thu Feb 12 23:22:44 2026] [::1]:59122 [200]: GET /PAINEL/painel_adm.php
+[Thu Feb 12 23:22:44 2026] [::1]:59122 Closing
+[Thu Feb 12 23:22:44 2026] [::1]:59138 Accepted
+[Thu Feb 12 23:22:44 2026] [::1]:59150 Accepted
+[Thu Feb 12 23:22:44 2026] [::1]:59138 [200]: GET /PAINEL/painel_adm.css
+[Thu Feb 12 23:22:44 2026] [::1]:59150 [200]: GET /IMG/profile-1.jpg
+[Thu Feb 12 23:22:44 2026] [::1]:59138 Closing
+[Thu Feb 12 23:22:44 2026] [::1]:59150 Closing
+[Thu Feb 12 23:22:44 2026] [::1]:59162 Accepted
+[Thu Feb 12 23:22:44 2026] [::1]:59162 [200]: GET /index.php
+[Thu Feb 12 23:22:44 2026] [::1]:59162 Closing
+[Thu Feb 12 23:23:08 2026] [::1]:34342 Accepted
+[Thu Feb 12 23:23:08 2026] [::1]:34342 [200]: GET /index.php
+[Thu Feb 12 23:23:08 2026] [::1]:34342 Closing
+[Thu Feb 12 23:23:08 2026] [::1]:34346 Accepted
+[Thu Feb 12 23:23:08 2026] [::1]:34346 [200]: GET /cadastro.php
+[Thu Feb 12 23:23:08 2026] [::1]:34346 Closing
+[Thu Feb 12 23:23:08 2026] [::1]:34352 Accepted
+[Thu Feb 12 23:23:09 2026] [::1]:34352 [200]: GET /PAINEL/painel_adm.php
+[Thu Feb 12 23:23:09 2026] [::1]:34352 Closing
+[Thu Feb 12 23:23:09 2026] [::1]:34364 Accepted
+[Thu Feb 12 23:23:09 2026] [::1]:34374 Accepted
+[Thu Feb 12 23:23:09 2026] [::1]:34364 [200]: GET /PAINEL/painel_adm.css
+[Thu Feb 12 23:23:09 2026] [::1]:34364 Closing
+[Thu Feb 12 23:23:09 2026] [::1]:34374 [200]: GET /IMG/profile-1.jpg
+[Thu Feb 12 23:23:09 2026] [::1]:34374 Closing
+[Thu Feb 12 23:23:09 2026] [::1]:34382 Accepted
+[Thu Feb 12 23:23:09 2026] [::1]:34382 [200]: GET /index.php
+[Thu Feb 12 23:23:09 2026] [::1]:34382 Closing
+[Thu Feb 12 23:23:34 2026] [::1]:57584 Accepted
+[Thu Feb 12 23:23:34 2026] [::1]:57584 [200]: GET /index.php
+[Thu Feb 12 23:23:34 2026] [::1]:57584 Closing
+[Thu Feb 12 23:23:34 2026] [::1]:57592 Accepted
+[Thu Feb 12 23:23:34 2026] [::1]:57592 [200]: GET /cadastro.php
+[Thu Feb 12 23:23:34 2026] [::1]:57592 Closing
+[Thu Feb 12 23:23:34 2026] [::1]:57600 Accepted
+[Thu Feb 12 23:23:35 2026] [::1]:57600 [200]: GET /PAINEL/painel_adm.php
+[Thu Feb 12 23:23:35 2026] [::1]:57600 Closing
+[Thu Feb 12 23:23:35 2026] [::1]:57614 Accepted
+[Thu Feb 12 23:23:35 2026] [::1]:57624 Accepted
+[Thu Feb 12 23:23:35 2026] [::1]:57614 [200]: GET /PAINEL/painel_adm.css
+[Thu Feb 12 23:23:35 2026] [::1]:57614 Closing
+[Thu Feb 12 23:23:35 2026] [::1]:57624 [200]: GET /IMG/profile-1.jpg
+[Thu Feb 12 23:23:35 2026] [::1]:57624 Closing
