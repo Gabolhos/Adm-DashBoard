@@ -1,10 +1,13 @@
 <?php
 require_once 'db.php';
 
-// Ensure database is selected
-$conn->select_db(DB_NAME);
+// Ensure database is selected if possible
+if (!$conn->connect_error) {
+    // If we are on remote, DB_NAME is stilodev_mec
+    // If we are on local fallback, it might be 'mecanica' or none
+    // But db.php already tried to connect to DB_NAME
+}
 
-// Table creation
 $queries = [
     "CREATE TABLE IF NOT EXISTS Cliente (
         id_cliente INT AUTO_INCREMENT PRIMARY KEY,
@@ -74,35 +77,37 @@ $queries = [
         nome VARCHAR(100),
         email VARCHAR(100) UNIQUE NOT NULL,
         is_admin TINYINT(1) DEFAULT 0
-    )",
-    "ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS nome VARCHAR(100) AFTER firebase_uid"
+    )"
 ];
 
-foreach ($queries as $query) {
-    if (!$conn->query($query)) {
-        echo "Error creating table: " . $conn->error . "\n";
+if (!$conn->connect_error) {
+    foreach ($queries as $query) {
+        if (!$conn->query($query)) {
+            echo "Error creating table: " . $conn->error . "\n";
+        }
     }
+
+    // Dummy Data
+    $dummy_data = [
+        "INSERT IGNORE INTO Cliente (id_cliente, nome, cpf, telefone, email, endereco) VALUES (1, 'Gabriel Henrique', '12345678901', '11999999999', 'gabriel@email.com', 'Rua A, 123')",
+        "INSERT IGNORE INTO Veiculo (id_veiculo, placa, marca, modelo, ano, cor, id_cliente) VALUES (1, 'BRA2E19', 'Chevrolet', 'Onix', 2022, 'Prata', 1)",
+        "INSERT IGNORE INTO mecanico (id_mecanico, nome, telefone) VALUES (1, 'Jadir Buratto', '11888888888')",
+        "INSERT IGNORE INTO Servico (id_servico, descricao, valor) VALUES (1, 'Suspensão', 500.00)",
+        "INSERT IGNORE INTO Servico (id_servico, descricao, valor) VALUES (2, 'Troca de Óleo', 150.00)",
+        "INSERT IGNORE INTO Servico (id_servico, descricao, valor) VALUES (3, 'Alinhamento', 80.00)",
+        "INSERT IGNORE INTO Peca (id_peca, nome, marca, preco) VALUES (1, 'Amortecedor', 'Cofap', 300.00)",
+        "INSERT IGNORE INTO ordem_servico (id_ordem_servico, data_emissao, status, valor_total, id_veiculo, id_mecanico, relato) VALUES (1, '2023-10-01', 'Em andamento', 9102.00, 1, 1, 'Barulho na suspensão dianteira')",
+        "INSERT IGNORE INTO ordem_servico_servicos (id_ordem_servico, id_servico) VALUES (1, 1)",
+        "INSERT IGNORE INTO ordem_servico (id_ordem_servico, data_emissao, status, valor_total, id_veiculo, id_mecanico, relato) VALUES (2, '2023-10-02', 'Aguardando peças', 1500.00, 1, 1, 'Necessário trocar amortecedores')",
+        "INSERT IGNORE INTO ordem_servico (id_ordem_servico, data_emissao, status, valor_total, id_veiculo, id_mecanico, relato) VALUES (3, '2023-10-03', 'Aberto', 200.00, 1, 1, 'Revisão geral')",
+        "INSERT IGNORE INTO ordem_servico (id_ordem_servico, data_emissao, status, valor_total, id_veiculo, id_mecanico, relato) VALUES (4, '2023-10-04', 'Concluído', 500.00, 1, 1, 'Troca de óleo concluída')"
+    ];
+
+    foreach ($dummy_data as $data) {
+        $conn->query($data);
+    }
+    echo "Database initialized successfully.\n";
+} else {
+    echo "Could not connect to database for initialization.\n";
 }
-
-// Dummy Data
-$dummy_data = [
-    "INSERT IGNORE INTO Cliente (id_cliente, nome, cpf, telefone, email, endereco) VALUES (1, 'Gabriel Henrique', '12345678901', '11999999999', 'gabriel@email.com', 'Rua A, 123')",
-    "INSERT IGNORE INTO Veiculo (id_veiculo, placa, marca, modelo, ano, cor, id_cliente) VALUES (1, 'BRA2E19', 'Chevrolet', 'Onix', 2022, 'Prata', 1)",
-    "INSERT IGNORE INTO mecanico (id_mecanico, nome, telefone) VALUES (1, 'Jadir Buratto', '11888888888')",
-    "INSERT IGNORE INTO Servico (id_servico, descricao, valor) VALUES (1, 'Suspensão', 500.00)",
-    "INSERT IGNORE INTO Servico (id_servico, descricao, valor) VALUES (2, 'Troca de Óleo', 150.00)",
-    "INSERT IGNORE INTO Servico (id_servico, descricao, valor) VALUES (3, 'Alinhamento', 80.00)",
-    "INSERT IGNORE INTO Peca (id_peca, nome, marca, preco) VALUES (1, 'Amortecedor', 'Cofap', 300.00)",
-    "INSERT IGNORE INTO ordem_servico (id_ordem_servico, data_emissao, status, valor_total, id_veiculo, id_mecanico, relato) VALUES (1, '2023-10-01', 'Em andamento', 9102.00, 1, 1, 'Barulho na suspensão dianteira')",
-    "INSERT IGNORE INTO ordem_servico_servicos (id_ordem_servico, id_servico) VALUES (1, 1)",
-    "INSERT IGNORE INTO ordem_servico (id_ordem_servico, data_emissao, status, valor_total, id_veiculo, id_mecanico, relato) VALUES (2, '2023-10-02', 'Aguardando peças', 1500.00, 1, 1, 'Necessário trocar amortecedores')",
-    "INSERT IGNORE INTO ordem_servico (id_ordem_servico, data_emissao, status, valor_total, id_veiculo, id_mecanico, relato) VALUES (3, '2023-10-03', 'Aberto', 200.00, 1, 1, 'Revisão geral')",
-    "INSERT IGNORE INTO ordem_servico (id_ordem_servico, data_emissao, status, valor_total, id_veiculo, id_mecanico, relato) VALUES (4, '2023-10-04', 'Concluído', 500.00, 1, 1, 'Troca de óleo concluída')"
-];
-
-foreach ($dummy_data as $data) {
-    $conn->query($data);
-}
-
-echo "Database initialized successfully.\n";
 ?>

@@ -25,14 +25,17 @@ if ($uid && $email) {
         // Define admin por padrão para um email específico
         $is_admin = (in_array($email, ['admin@mecanica.com', 'jadir@mecanica.com'])) ? 1 : 0;
 
+        // Usamos placeholders únicos para o UPDATE pois algumas versões do PDO não permitem reutilizar nomes sem ATTR_EMULATE_PREPARES
         $sql = "INSERT INTO usuarios (firebase_uid, email, nome, is_admin) VALUES (:uid, :email, :nome, :is_admin)
-                ON DUPLICATE KEY UPDATE email = :email, nome = IFNULL(:nome, nome)";
+                ON DUPLICATE KEY UPDATE email = :email_up, nome = IFNULL(:nome_up, nome)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
             ':uid' => $uid,
             ':email' => $email,
             ':nome' => $nome,
-            ':is_admin' => $is_admin
+            ':is_admin' => $is_admin,
+            ':email_up' => $email,
+            ':nome_up' => $nome
         ]);
 
         echo json_encode(['status' => 'success', 'message' => 'Usuário processado com sucesso!']);
