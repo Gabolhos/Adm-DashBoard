@@ -7,6 +7,9 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="painel_adm.css">
     <link rel="stylesheet" href="painel_cliente.css">
+    <style>
+        .hidden { display: none !important; }
+    </style>
 </head>
 <body class="hidden">
     <div class="sidebar">
@@ -33,11 +36,11 @@
                 <h2>Painel</h2>
                 <p>Hello, <span id="welcome-name">Usuário</span>. Bem-Vindo à <span>Tratto Mecânica</span></p>
             </div>
-            <div class="header-right">
+            <div class="header-right" style="display: flex; align-items: center; gap: 30px;">
                 <button class="btn-cadastrar-carro">
                     Cadastrar um carro
                 </button>
-                <div class="logout-container" onclick="logout()">
+                <div class="logout-container" id="btnLogout" style="cursor: pointer;">
                     <i class='bx bx-log-out'></i>
                     <span>Sair</span>
                 </div>
@@ -51,27 +54,32 @@
         </div>
     </div>
 
+    <!-- Firebase Auth Check -->
     <script type="module">
-        import { auth } from "../firebase-config.js";
-        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
 
-        window.logout = () => {
-            signOut(auth).then(() => {
-                window.location.href = "../index.php";
-            });
+        const firebaseConfig = {
+            apiKey: "AIzaSyC642PXZVjV96ORWO3qMcuEYe0lIMdIE9Q",
+            authDomain: "mec-projeto-65861.firebaseapp.com",
+            projectId: "mec-projeto-65861",
+            storageBucket: "mec-projeto-65861.firebasestorage.app",
+            messagingSenderId: "625687541988",
+            appId: "1:625687541988:web:fc82f6cb314ecc380c14f1"
         };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 fetch(`get_user_info.php?uid=${user.uid}`)
                     .then(response => response.json())
                     .then(data => {
-                        if (data.status === 'success') {
-                            if (data.nome) {
-                                document.getElementById('user-name-display').innerText = data.nome;
-                                const welcomeName = document.getElementById('welcome-name');
-                                if (welcomeName) welcomeName.innerText = data.nome;
-                            }
+                        if (data.status === 'success' && data.nome) {
+                            document.getElementById('user-name-display').innerText = data.nome;
+                            const welcomeName = document.getElementById('welcome-name');
+                            if (welcomeName) welcomeName.innerText = data.nome;
                         } else {
                             document.getElementById('user-name-display').innerText = user.email;
                         }
@@ -83,6 +91,12 @@
             } else {
                 window.location.href = "../index.php";
             }
+        });
+
+        document.getElementById('btnLogout').addEventListener('click', () => {
+            signOut(auth).then(() => {
+                window.location.href = "../index.php";
+            });
         });
     </script>
 </body>

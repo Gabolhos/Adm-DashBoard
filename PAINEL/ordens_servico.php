@@ -98,13 +98,7 @@ if (!$conn->connect_error) {
                 <h2>Ordens de serviço</h2>
                 <p>Hello, <span id="welcome-name">Usuário</span>. Bem-Vindo à <span>Tratto Mecânica</span></p>
             </div>
-            <div class="header-right" style="display: flex; align-items: center; gap: 20px;">
-                <a href="nova_ordem_servico.php" class="btn-create"><i class='bx bx-plus'></i> Criar O.S.</a>
-                <div class="logout-container" onclick="logout()">
-                    <i class='bx bx-log-out'></i>
-                    <span>Sair</span>
-                </div>
-            </div>
+            <a href="nova_ordem_servico.php" class="btn-create"><i class='bx bx-plus'></i> Criar O.S.</a>
         </div>
 
         <div class="orders-table">
@@ -127,14 +121,14 @@ if (!$conn->connect_error) {
                     <?php else: ?>
                         <?php foreach ($orders as $order): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($order['cliente']); ?></td>
-                                <td><?php echo htmlspecialchars($order['veiculo']); ?></td>
-                                <td><?php echo htmlspecialchars($order['servico']); ?></td>
-                                <td><span class="status-tag status-<?php echo strtolower(str_replace(' ', '-', $order['status'])); ?>"><?php echo htmlspecialchars($order['status']); ?></span></td>
+                                <td><?php echo $order['cliente']; ?></td>
+                                <td><?php echo $order['veiculo']; ?></td>
+                                <td><?php echo $order['servico']; ?></td>
+                                <td><span class="status-tag status-<?php echo strtolower(str_replace(' ', '-', $order['status'])); ?>"><?php echo $order['status']; ?></span></td>
                                 <td>R$ <?php echo number_format($order['valor_total'], 2, ',', '.'); ?></td>
                                 <td class="action-btns">
-                                    <a href="nova_ordem_servico.php?id=<?php echo (int)$order['id_ordem_servico']; ?>" class="btn-edit"><i class='bx bx-edit-alt'></i></a>
-                                    <button onclick="confirmDelete(<?php echo (int)$order['id_ordem_servico']; ?>)" class="btn-delete"><i class='bx bx-trash'></i></button>
+                                    <a href="nova_ordem_servico.php?id=<?php echo $order['id_ordem_servico']; ?>" class="btn-edit"><i class='bx bx-edit-alt'></i></a>
+                                    <button onclick="confirmDelete(<?php echo $order['id_ordem_servico']; ?>)" class="btn-delete"><i class='bx bx-trash'></i></button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -145,32 +139,30 @@ if (!$conn->connect_error) {
     </div>
 
     <script type="module">
-        import { auth } from "../firebase-config.js";
-        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
 
-        window.logout = () => {
-            signOut(auth).then(() => {
-                window.location.href = "../index.php";
-            });
+        const firebaseConfig = {
+            apiKey: "AIzaSyC642PXZVjV96ORWO3qMcuEYe0lIMdIE9Q",
+            authDomain: "mec-projeto-65861.firebaseapp.com",
+            projectId: "mec-projeto-65861",
+            storageBucket: "mec-projeto-65861.firebasestorage.app",
+            messagingSenderId: "625687541988",
+            appId: "1:625687541988:web:fc82f6cb314ecc380c14f1"
         };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 fetch(`get_user_info.php?uid=${user.uid}`)
                     .then(response => response.json())
                     .then(data => {
-                        if (data.status === 'success') {
-                            // Role-based redirection
-                            if (data.is_admin === 0) {
-                                window.location.href = 'painel_cliente.php';
-                                return;
-                            }
-
-                            if (data.nome) {
-                                document.getElementById('user-name-display').innerText = data.nome;
-                                const welcomeName = document.getElementById('welcome-name');
-                                if (welcomeName) welcomeName.innerText = data.nome;
-                            }
+                        if (data.status === 'success' && data.nome) {
+                            document.getElementById('user-name-display').innerText = data.nome;
+                            const welcomeName = document.getElementById('welcome-name');
+                            if (welcomeName) welcomeName.innerText = data.nome;
                         } else {
                             document.getElementById('user-name-display').innerText = user.email;
                         }

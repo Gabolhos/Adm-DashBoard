@@ -1,8 +1,4 @@
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-}
+/* Specific styles for painel_cliente */
 
 .btn-cadastrar-carro {
     background-color: var(--green);
@@ -29,6 +25,7 @@
     align-items: center;
     justify-content: center;
     min-height: 300px;
+    margin-top: 20px;
 }
 
 .empty-state-card p {
