@@ -1,0 +1,49 @@
+[Sun Feb 15 06:29:46 2026] PHP 8.3.6 Development Server (http://localhost:8000) started
+[Sun Feb 15 06:30:21 2026] [::1]:55244 Accepted
+[Sun Feb 15 06:30:22 2026] [::1]:55244 [200]: GET /PAINEL/painel_adm.php
+[Sun Feb 15 06:30:22 2026] [::1]:55244 Closing
+[Sun Feb 15 06:30:22 2026] [::1]:55248 Accepted
+[Sun Feb 15 06:30:22 2026] [::1]:55264 Accepted
+[Sun Feb 15 06:30:22 2026] [::1]:55248 [200]: GET /PAINEL/painel_adm.css
+[Sun Feb 15 06:30:22 2026] [::1]:55248 Closing
+[Sun Feb 15 06:30:22 2026] [::1]:55264 [200]: GET /IMG/profile-1.jpg
+[Sun Feb 15 06:30:22 2026] [::1]:55264 Closing
+[Sun Feb 15 06:30:23 2026] [::1]:55280 Accepted
+[Sun Feb 15 06:30:23 2026] [::1]:55280 [200]: GET /index.php
+[Sun Feb 15 06:30:23 2026] [::1]:55280 Closing
+[Sun Feb 15 06:30:25 2026] [::1]:55284 Accepted
+[Sun Feb 15 06:30:25 2026] [::1]:55284 [200]: GET /PAINEL/painel_cliente.php
+[Sun Feb 15 06:30:25 2026] [::1]:55284 Closing
+[Sun Feb 15 06:30:25 2026] [::1]:55290 Accepted
+[Sun Feb 15 06:30:25 2026] [::1]:55298 Accepted
+[Sun Feb 15 06:30:25 2026] [::1]:55304 Accepted
+[Sun Feb 15 06:30:25 2026] [::1]:55290 [200]: GET /PAINEL/painel_adm.css
+[Sun Feb 15 06:30:25 2026] [::1]:55298 [200]: GET /PAINEL/painel_cliente.css
+[Sun Feb 15 06:30:25 2026] [::1]:55304 [200]: GET /IMG/profile-1.jpg
+[Sun Feb 15 06:30:25 2026] [::1]:55290 Closing
+[Sun Feb 15 06:30:25 2026] [::1]:55298 Closing
+[Sun Feb 15 06:30:25 2026] [::1]:55304 Closing
+[Sun Feb 15 06:30:25 2026] [::1]:55316 Accepted
+[Sun Feb 15 06:30:25 2026] [::1]:55316 [200]: GET /index.php
+[Sun Feb 15 06:30:25 2026] [::1]:55316 Closing
+[Sun Feb 15 06:30:43 2026] [::1]:43768 Accepted
+[Sun Feb 15 06:30:44 2026] [::1]:43768 [200]: GET /PAINEL/painel_adm.php
+[Sun Feb 15 06:30:44 2026] [::1]:43768 Closing
+[Sun Feb 15 06:30:44 2026] [::1]:43774 Accepted
+[Sun Feb 15 06:30:44 2026] [::1]:43790 Accepted
+[Sun Feb 15 06:30:44 2026] [::1]:43774 [200]: GET /PAINEL/painel_adm.css
+[Sun Feb 15 06:30:44 2026] [::1]:43774 Closing
+[Sun Feb 15 06:30:44 2026] [::1]:43790 [200]: GET /IMG/profile-1.jpg
+[Sun Feb 15 06:30:44 2026] [::1]:43790 Closing
+[Sun Feb 15 06:30:45 2026] [::1]:43798 Accepted
+[Sun Feb 15 06:30:45 2026] [::1]:43798 [200]: GET /PAINEL/painel_cliente.php
+[Sun Feb 15 06:30:45 2026] [::1]:43798 Closing
+[Sun Feb 15 06:30:45 2026] [::1]:43800 Accepted
+[Sun Feb 15 06:30:45 2026] [::1]:43804 Accepted
+[Sun Feb 15 06:30:45 2026] [::1]:43808 Accepted
+[Sun Feb 15 06:30:45 2026] [::1]:43800 [200]: GET /PAINEL/painel_adm.css
+[Sun Feb 15 06:30:45 2026] [::1]:43804 [200]: GET /PAINEL/painel_cliente.css
+[Sun Feb 15 06:30:45 2026] [::1]:43808 [200]: GET /IMG/profile-1.jpg
+[Sun Feb 15 06:30:45 2026] [::1]:43800 Closing
+[Sun Feb 15 06:30:45 2026] [::1]:43804 Closing
+[Sun Feb 15 06:30:45 2026] [::1]:43808 Closing

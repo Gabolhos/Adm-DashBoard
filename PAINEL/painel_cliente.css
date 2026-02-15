@@ -1,0 +1,38 @@
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.btn-cadastrar-carro {
+    background-color: var(--green);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-cadastrar-carro:hover {
+    opacity: 0.9;
+}
+
+.empty-state-card {
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 100px 25px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+}
+
+.empty-state-card p {
+    color: #94a3b8;
+    font-size: 28px;
+    font-weight: 500;
+}
