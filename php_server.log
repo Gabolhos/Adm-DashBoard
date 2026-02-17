@@ -1,70 +1,28 @@
-[Fri Feb 13 13:38:32 2026] PHP 8.3.6 Development Server (http://0.0.0.0:8000) started
-[Fri Feb 13 13:39:40 2026] 127.0.0.1:34198 Accepted
-[Fri Feb 13 13:39:40 2026] 127.0.0.1:34198 [200]: GET /index.php
-[Fri Feb 13 13:39:40 2026] 127.0.0.1:34198 Closing
-[Fri Feb 13 13:39:41 2026] 127.0.0.1:34200 Accepted
-[Fri Feb 13 13:39:42 2026] 127.0.0.1:34200 [200]: GET /PAINEL/painel_adm.php
-[Fri Feb 13 13:39:42 2026] 127.0.0.1:34200 Closing
-[Fri Feb 13 13:39:42 2026] 127.0.0.1:34202 Accepted
-[Fri Feb 13 13:39:42 2026] 127.0.0.1:34218 Accepted
-[Fri Feb 13 13:39:42 2026] 127.0.0.1:34202 [200]: GET /PAINEL/painel_adm.css
-[Fri Feb 13 13:39:42 2026] 127.0.0.1:34218 [200]: GET /IMG/profile-1.jpg
-[Fri Feb 13 13:39:42 2026] 127.0.0.1:34202 Closing
-[Fri Feb 13 13:39:42 2026] 127.0.0.1:34218 Closing
-[Fri Feb 13 13:39:42 2026] 127.0.0.1:34222 Accepted
-[Fri Feb 13 13:39:42 2026] 127.0.0.1:34222 [200]: GET /index.php
-[Fri Feb 13 13:39:42 2026] 127.0.0.1:34222 Closing
-[Fri Feb 13 13:39:44 2026] 127.0.0.1:34234 Accepted
-[Fri Feb 13 13:39:45 2026] 127.0.0.1:34234 [200]: GET /PAINEL/ordens_servico.php
-[Fri Feb 13 13:39:45 2026] 127.0.0.1:34234 Closing
-[Fri Feb 13 13:39:45 2026] 127.0.0.1:34242 Accepted
-[Fri Feb 13 13:39:45 2026] 127.0.0.1:34256 Accepted
-[Fri Feb 13 13:39:45 2026] 127.0.0.1:34242 [200]: GET /PAINEL/painel_adm.css
-[Fri Feb 13 13:39:45 2026] 127.0.0.1:34256 [200]: GET /IMG/profile-1.jpg
-[Fri Feb 13 13:39:45 2026] 127.0.0.1:34242 Closing
-[Fri Feb 13 13:39:45 2026] 127.0.0.1:34256 Closing
-[Fri Feb 13 13:39:45 2026] 127.0.0.1:34268 Accepted
-[Fri Feb 13 13:39:45 2026] 127.0.0.1:34268 [200]: GET /index.php
-[Fri Feb 13 13:39:45 2026] 127.0.0.1:34268 Closing
-[Fri Feb 13 13:39:46 2026] 127.0.0.1:34284 Accepted
-[Fri Feb 13 13:39:47 2026] 127.0.0.1:34284 [200]: GET /PAINEL/nova_ordem_servico.php
-[Fri Feb 13 13:39:47 2026] 127.0.0.1:34284 Closing
-[Fri Feb 13 13:39:47 2026] 127.0.0.1:34290 Accepted
-[Fri Feb 13 13:39:47 2026] 127.0.0.1:34294 Accepted
-[Fri Feb 13 13:39:47 2026] 127.0.0.1:34290 [200]: GET /PAINEL/painel_adm.css
-[Fri Feb 13 13:39:47 2026] 127.0.0.1:34294 [200]: GET /IMG/profile-1.jpg
-[Fri Feb 13 13:39:47 2026] 127.0.0.1:34290 Closing
-[Fri Feb 13 13:39:47 2026] 127.0.0.1:34294 Closing
-[Fri Feb 13 13:39:47 2026] 127.0.0.1:34300 Accepted
-[Fri Feb 13 13:39:47 2026] 127.0.0.1:34300 [200]: GET /index.php
-[Fri Feb 13 13:39:47 2026] 127.0.0.1:34300 Closing
-[Fri Feb 13 13:41:01 2026] 127.0.0.1:38586 Accepted
-[Fri Feb 13 13:41:01 2026] 127.0.0.1:38586 [200]: GET /index.php
-[Fri Feb 13 13:41:01 2026] 127.0.0.1:38586 Closing
-[Fri Feb 13 13:41:01 2026] 127.0.0.1:38602 Accepted
-[Fri Feb 13 13:41:02 2026] 127.0.0.1:38602 [200]: GET /PAINEL/painel_adm.php
-[Fri Feb 13 13:41:02 2026] 127.0.0.1:38602 Closing
-[Fri Feb 13 13:41:02 2026] 127.0.0.1:38608 Accepted
-[Fri Feb 13 13:41:02 2026] 127.0.0.1:38616 Accepted
-[Fri Feb 13 13:41:02 2026] 127.0.0.1:38608 [200]: GET /PAINEL/painel_adm.css
-[Fri Feb 13 13:41:02 2026] 127.0.0.1:38608 Closing
-[Fri Feb 13 13:41:02 2026] 127.0.0.1:38616 [200]: GET /IMG/profile-1.jpg
-[Fri Feb 13 13:41:02 2026] 127.0.0.1:38616 Closing
-[Fri Feb 13 13:41:03 2026] 127.0.0.1:38632 Accepted
-[Fri Feb 13 13:41:04 2026] 127.0.0.1:38632 [200]: GET /PAINEL/ordens_servico.php
-[Fri Feb 13 13:41:04 2026] 127.0.0.1:38632 Closing
-[Fri Feb 13 13:41:04 2026] 127.0.0.1:38642 Accepted
-[Fri Feb 13 13:41:04 2026] 127.0.0.1:38644 Accepted
-[Fri Feb 13 13:41:04 2026] 127.0.0.1:38642 [200]: GET /PAINEL/painel_adm.css
-[Fri Feb 13 13:41:04 2026] 127.0.0.1:38644 [200]: GET /IMG/profile-1.jpg
-[Fri Feb 13 13:41:04 2026] 127.0.0.1:38642 Closing
-[Fri Feb 13 13:41:04 2026] 127.0.0.1:38644 Closing
-[Fri Feb 13 13:41:05 2026] 127.0.0.1:38646 Accepted
-[Fri Feb 13 13:41:06 2026] 127.0.0.1:38646 [200]: GET /PAINEL/nova_ordem_servico.php
-[Fri Feb 13 13:41:06 2026] 127.0.0.1:38646 Closing
-[Fri Feb 13 13:41:06 2026] 127.0.0.1:38656 Accepted
-[Fri Feb 13 13:41:06 2026] 127.0.0.1:38666 Accepted
-[Fri Feb 13 13:41:06 2026] 127.0.0.1:38656 [200]: GET /PAINEL/painel_adm.css
-[Fri Feb 13 13:41:06 2026] 127.0.0.1:38656 Closing
-[Fri Feb 13 13:41:06 2026] 127.0.0.1:38666 [200]: GET /IMG/profile-1.jpg
-[Fri Feb 13 13:41:06 2026] 127.0.0.1:38666 Closing
+[Tue Feb 17 00:40:03 2026] PHP 8.3.6 Development Server (http://localhost:8000) started
+[Tue Feb 17 00:40:07 2026] [::1]:46272 Accepted
+[Tue Feb 17 00:40:07 2026] [::1]:46272 [200]: GET /PAINEL/painel_cliente.php
+[Tue Feb 17 00:40:07 2026] [::1]:46272 Closing
+[Tue Feb 17 00:40:07 2026] [::1]:46276 Accepted
+[Tue Feb 17 00:40:07 2026] [::1]:46286 Accepted
+[Tue Feb 17 00:40:07 2026] [::1]:46290 Accepted
+[Tue Feb 17 00:40:07 2026] [::1]:46276 [200]: GET /PAINEL/painel_adm.css
+[Tue Feb 17 00:40:07 2026] [::1]:46276 Closing
+[Tue Feb 17 00:40:07 2026] [::1]:46286 [200]: GET /PAINEL/painel_cliente.css
+[Tue Feb 17 00:40:07 2026] [::1]:46286 Closing
+[Tue Feb 17 00:40:07 2026] [::1]:46290 [200]: GET /IMG/profile-1.jpg
+[Tue Feb 17 00:40:07 2026] [::1]:46290 Closing
+[Tue Feb 17 00:40:07 2026] [::1]:46304 Accepted
+[Tue Feb 17 00:40:07 2026] [::1]:46304 [200]: GET /index.php
+[Tue Feb 17 00:40:07 2026] [::1]:46304 Closing
+[Tue Feb 17 00:40:25 2026] [::1]:60548 Accepted
+[Tue Feb 17 00:40:25 2026] [::1]:60548 [200]: GET /PAINEL/painel_cliente.php
+[Tue Feb 17 00:40:25 2026] [::1]:60548 Closing
+[Tue Feb 17 00:40:25 2026] [::1]:60556 Accepted
+[Tue Feb 17 00:40:25 2026] [::1]:60568 Accepted
+[Tue Feb 17 00:40:25 2026] [::1]:60576 Accepted
+[Tue Feb 17 00:40:25 2026] [::1]:60556 [200]: GET /PAINEL/painel_adm.css
+[Tue Feb 17 00:40:25 2026] [::1]:60556 Closing
+[Tue Feb 17 00:40:25 2026] [::1]:60568 [200]: GET /PAINEL/painel_cliente.css
+[Tue Feb 17 00:40:25 2026] [::1]:60568 Closing
+[Tue Feb 17 00:40:25 2026] [::1]:60576 [200]: GET /IMG/profile-1.jpg
+[Tue Feb 17 00:40:25 2026] [::1]:60576 Closing
