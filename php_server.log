@@ -1,0 +1,28 @@
+[Tue Feb 17 00:40:03 2026] PHP 8.3.6 Development Server (http://localhost:8000) started
+[Tue Feb 17 00:40:07 2026] [::1]:46272 Accepted
+[Tue Feb 17 00:40:07 2026] [::1]:46272 [200]: GET /PAINEL/painel_cliente.php
+[Tue Feb 17 00:40:07 2026] [::1]:46272 Closing
+[Tue Feb 17 00:40:07 2026] [::1]:46276 Accepted
+[Tue Feb 17 00:40:07 2026] [::1]:46286 Accepted
+[Tue Feb 17 00:40:07 2026] [::1]:46290 Accepted
+[Tue Feb 17 00:40:07 2026] [::1]:46276 [200]: GET /PAINEL/painel_adm.css
+[Tue Feb 17 00:40:07 2026] [::1]:46276 Closing
+[Tue Feb 17 00:40:07 2026] [::1]:46286 [200]: GET /PAINEL/painel_cliente.css
+[Tue Feb 17 00:40:07 2026] [::1]:46286 Closing
+[Tue Feb 17 00:40:07 2026] [::1]:46290 [200]: GET /IMG/profile-1.jpg
+[Tue Feb 17 00:40:07 2026] [::1]:46290 Closing
+[Tue Feb 17 00:40:07 2026] [::1]:46304 Accepted
+[Tue Feb 17 00:40:07 2026] [::1]:46304 [200]: GET /index.php
+[Tue Feb 17 00:40:07 2026] [::1]:46304 Closing
+[Tue Feb 17 00:40:25 2026] [::1]:60548 Accepted
+[Tue Feb 17 00:40:25 2026] [::1]:60548 [200]: GET /PAINEL/painel_cliente.php
+[Tue Feb 17 00:40:25 2026] [::1]:60548 Closing
+[Tue Feb 17 00:40:25 2026] [::1]:60556 Accepted
+[Tue Feb 17 00:40:25 2026] [::1]:60568 Accepted
+[Tue Feb 17 00:40:25 2026] [::1]:60576 Accepted
+[Tue Feb 17 00:40:25 2026] [::1]:60556 [200]: GET /PAINEL/painel_adm.css
+[Tue Feb 17 00:40:25 2026] [::1]:60556 Closing
+[Tue Feb 17 00:40:25 2026] [::1]:60568 [200]: GET /PAINEL/painel_cliente.css
+[Tue Feb 17 00:40:25 2026] [::1]:60568 Closing
+[Tue Feb 17 00:40:25 2026] [::1]:60576 [200]: GET /IMG/profile-1.jpg
+[Tue Feb 17 00:40:25 2026] [::1]:60576 Closing
